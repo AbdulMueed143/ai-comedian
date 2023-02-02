@@ -4,7 +4,7 @@ import threading
 import openai
 
 # Set the API key
-openai.api_key = "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"
+openai.api_key = ""
 
 
 # Your Twitter API credentials
