@@ -6,3 +6,8 @@ class CTweet:
 
     def countWords():
         text.split("")
+
+class TrendsAndTweets:
+    city = ""
+    trends = []
+    tweets = []
