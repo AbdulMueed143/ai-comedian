@@ -24,7 +24,7 @@ class TwitterService:
     # Function to get the top 20 tweets for a trend
     def get_tweets(self, trends, tweets):
         for trend in trends[0]["trends"]:
-            currentTweets = self.api.search_tweets(q=trend["name"], lang = 'en', count=1, tweet_mode="extended")
+            currentTweets = self.api.search_tweets(q=trend["name"], lang = 'en', count=5, tweet_mode="extended")
             cTweet = [tweet.full_text for tweet in currentTweets]
             tweets.extend(cTweet)
 

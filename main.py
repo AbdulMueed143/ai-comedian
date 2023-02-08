@@ -1,4 +1,5 @@
 from services.twitter import TwitterService
+from services.utils import CleanTweets
 
 if __name__ == "__main__":
     # twitterService = TwitterService()    
@@ -10,8 +11,10 @@ if __name__ == "__main__":
     # f.write(str(tweets))
     # f.close()
 
-    f = open("allTweets.txt", "r")
-    tweets = f.read()
-    f.close()
+    cleanTweets  = CleanTweets()
 
-    print(tweets)
+    tweets = cleanTweets.readTweetsFromFile("allTweets.txt")
+    tweetsCleaned  = cleanTweets.removeTagsFromTweets()
+
+    print(tweetsCleaned)
+
