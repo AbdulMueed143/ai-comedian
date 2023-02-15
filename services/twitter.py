@@ -4,7 +4,7 @@ Just want to write a custom service class that will act as mask to connect to tw
 
 import tweepy
 import threading
-
+from models.tweet import CustomTweet
 
 class TwitterService:
     # Your Twitter API credentials, we need to move these to some kind of secret
@@ -25,7 +25,7 @@ class TwitterService:
     def get_tweets(self, trends, tweets):
         for trend in trends[0]["trends"]:
             currentTweets = self.api.search_tweets(q=trend["name"], lang = 'en', count=5, tweet_mode="extended")
-            cTweet = [tweet.full_text for tweet in currentTweets]
+            cTweet = [CustomTweet(tweet.full_text, trend) for tweet in currentTweets]
             tweets.extend(cTweet)
 
     def connectToTwitter(self):
@@ -35,7 +35,7 @@ class TwitterService:
         except:
             print('Failed authentication')
 
-    
+
     #There is possibility of getting 404 from twitter api.. or other errors obviously
     def getAllTrends(self):
         allIds = WOEIDMAP().all_woeid

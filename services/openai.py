@@ -32,11 +32,31 @@ class CreateJokes:
         pass
 
     def createPromptForJokeWithComedian(self, comedian, trend, tweets):
-        pass
+        prompt = ""
+        prompt += "I am "+comedian
+        prompt += " Currently twitter is trending with "+trend
+        prompt += " and people are sying '"
+        for tweet in tweets:
+            prompt += tweet
+            prompt += ", "
+
+        prompt += " ' "
+        prompt += " I want to write a joke about this trend. "
+        prompt += " in "+comedian+" style. "
+
+        return prompt
 
 
 #Currently we only have names of comedians in list
 #But in future we might need way more than this
 #We will not use this class for now
 class Comedian:
-    name = ""
+    def __init__(self, name) -> None:
+        self.name = name
+
+
+    def createPromptForJoke(self, trend, tweets):
+        return CreateJokes().createPromptForJokeWithComedian(self.name, trend, tweets)
+
+    def writeJoke(self):
+        pass
