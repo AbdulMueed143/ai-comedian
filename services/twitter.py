@@ -25,7 +25,7 @@ class TwitterService:
     def get_tweets(self, trends, tweets):
         for trend in trends[0]["trends"]:
             currentTweets = self.api.search_tweets(q=trend["name"], lang = 'en', count=5, tweet_mode="extended")
-            cTweet = [CustomTweet(tweet.full_text, trend) for tweet in currentTweets]
+            cTweet = [CustomTweet(tweet.full_text, trend["name"]) for tweet in currentTweets]
             tweets.extend(cTweet)
 
     def connectToTwitter(self):

@@ -37,7 +37,7 @@ class CreateJokes:
         prompt += " Currently twitter is trending with "+trend
         prompt += " and people are sying '"
         for tweet in tweets:
-            prompt += tweet
+            prompt += tweet.text
             prompt += ", "
 
         prompt += " ' "
@@ -55,7 +55,8 @@ class Comedian:
         self.name = name
 
 
-    def createPromptForJoke(self, trend, tweets):
+    def createPromptForJoke(self, tweets):
+        trend = tweets[0].trend
         return CreateJokes().createPromptForJokeWithComedian(self.name, trend, tweets)
 
     def writeJoke(self):
