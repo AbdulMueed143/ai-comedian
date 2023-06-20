@@ -2,6 +2,7 @@ from services.twitter import TwitterService
 from services.utils import CleanTweets
 from services.openai import Comedian
 from services.BusinessLogic.trendlines import TrendLineManipulation
+from services.firestore import CustomFirebase
 
 
 if __name__ == "__main__":
@@ -16,15 +17,17 @@ if __name__ == "__main__":
     
     cleanTweets.readTweetsFromJsonFile()
     tweetsCleaned  = cleanTweets.removeTagsFromTweets()
-    trendlines = TrendLineManipulation().createTrendLines(cleanTweets.tweets).trendlineItems
-
-    # print all prompts from trendlines
-    for trendline in trendlines:
-        for trendlineItem in trendline.trendlineItems:
-            print(trendlineItem.prompt)
-
+    #1 trend line is for all the prompts of different time 
+    #2 when the script runs again another trend line is created
+    trendline = TrendLineManipulation().createTrendLine(cleanTweets.tweets)
 
     #we should save trendlines to server :) 
+    #lets save it to server
+    firebase = CustomFirebase()
+    #loop trendlines key value pair
+    #for each trendline, save it to firestore
+    # firebase.saveTrendlines(trendline)
+    trendlines = firebase.getAllTrendlines()
 
     # rickyJervais = Comedian("Ricky Gervais")
     # kevinHart = Comedian("Kevin Hart")
@@ -36,6 +39,5 @@ if __name__ == "__main__":
 
 
     # print(tweetsCleaned)
-
     # print(customTweets)
 

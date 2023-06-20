@@ -7,16 +7,10 @@ class TrendLineManipulation:
         pass
 
     #This method expects tweets of specific trend only
-    def createTrendLineFromTweets(self, tweets):
+    def createTrendLineItemFromTweets(self, tweets):
         ckLouis = Comedian("CK Louis")
         prompt = ckLouis.createPromptForJoke(tweets)
-        trendline = Trendline()
-
-        for tweet in tweets:
-            trendlineItem = TrendlineItem(tweet, prompt)
-            trendline.addTrendline(trendlineItem)
-
-        return trendline
+        return TrendlineItem(prompt, tweets)
     
     def getTweetsByTrend(self, tweets):
         tweetsByTrend = {}
@@ -28,14 +22,14 @@ class TrendLineManipulation:
         
         return tweetsByTrend
     
-    def createTrendLines(self, tweets):
+    def createTrendLine(self, tweets):
         #break tweets list into groups of tweets of same trend
         #create trendline for each group
         #return trendlines
         tweetsByTrend = self.getTweetsByTrend(tweets)
-        trendlines = Trendline()
-        for trend in tweetsByTrend:
-            trendline = self.createTrendLineFromTweets(tweetsByTrend[trend])
-            trendlines.addTrendline(trendline)
+        trendline = Trendline()
+        for trend in tweetsByTrend.keys():
+            item = self.createTrendLineItemFromTweets(tweetsByTrend[trend])
+            trendline.trendlineItems.append(item)
 
-        return trendlines
+        return trendline

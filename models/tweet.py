@@ -13,12 +13,19 @@ class CustomTweet:
     def getTokenCount(self):
         return len(self.text.split(" "))
     
+    def __str__(self):
+        return f"CustomTweet(text='{self.text}', trend='{self.trend}')"
+    
 
 
 class Trendline:
     def __init__(self) -> None:
         #TrendlineItem
         self.trendlineItems = []
+    
+    def __init__(self, trendlineItems = []) -> None:
+        #TrendlineItem
+        self.trendlineItems = trendlineItems
 
     def addTrendline(self, trendline):
         self.trendlineItems.append(trendline)
@@ -37,9 +44,18 @@ class TrendlineItem:
         self.tweets = []
         self.prompt = "" #prompt is unique to each trend
 
-
-    def __init__(self, tweets, prompt, currentDateTime = datetime.now()) -> None:
+    def __init__(self,prompt, tweets = [],  currentDateTime = datetime.now()) -> None:
         self.currentDateTime = currentDateTime
         self.tweets = tweets
         self.prompt = prompt #prompt is unique to each trend
+        
+
+    def getCostOfPrompt(self):
+        cost = 0.0
+        for tweet in self.tweets:
+            cost += tweet.getTokenCount() * (0.005/1000)
+
+
+    def __str__(self):
+        return f"TLine(text='{self.tweets}'')"
     
